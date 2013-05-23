@@ -1,7 +1,7 @@
 QtCUrl
 ======
 
-QtCUrl is a shared library, for convenient usage of cUrl in a Qt projects.
+QtCUrl is a shared library, for convenient usage of cUrl in Qt projects.
 
 
 Example
