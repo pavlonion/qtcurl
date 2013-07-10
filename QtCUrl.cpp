@@ -1,3 +1,9 @@
+/**
+ * $URL: svn+ssh://tserver/var/svn/cps/trunk/src/cpp/lib/qtcurl/QtCUrl.cpp $
+ * $Author: onion $
+ * $Date: 2012-09-19 14:07:51 +0400 (Wed, 19 Sep 2012) $
+ * $Rev: 334 $
+ */
 #include "QtCUrl.h"
 
 #include <iostream>
@@ -6,7 +12,6 @@
 #include <QDebug>
 #include <QTextCodec>
 #include <QStringList>
-#include <QMetaType>
 
 
 CURLcode curlGlobalInit() {
@@ -111,9 +116,8 @@ void QtCUrl::setOptions(Options& opt) {
 	while (i.hasNext()) {
 		i.next();
 		QVariant value = i.value();
-		const int type = value.type();
 
-		switch (type) {
+		switch (value.type()) {
 			case QVariant::Bool:
 			case QVariant::Int: {
 				int val = value.toInt();
@@ -150,17 +154,19 @@ void QtCUrl::setOptions(Options& opt) {
 				break;
 			}
 			default:
-				if (type == qMetaTypeId<QtCUrl::WriterPtr>()) {
+				const QString typeName = value.typeName();
+
+				if (typeName == "QtCUrl::WriterPtr") {
 					curl_easy_setopt(_curl, i.key(), value.value<WriterPtr>());
 				}
-				else if (type == qMetaTypeId<std::string*>()) {
+				else if (typeName == "std::string*") {
 					curl_easy_setopt(_curl, i.key(), value.value<std::string*>());
 				}
-				else if (type == qMetaTypeId<char*>()) {
+				else if (typeName == "char*") {
 					curl_easy_setopt(_curl, i.key(), value.value<char*>());
 				}
 				else {
-					qDebug() << "[QtCUrl] Unsupported option type: " << value.typeName();
+					qDebug() << "[QtCUrl] Unsupported option type: " << typeName;
 				}
 		}
 	}
