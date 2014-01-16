@@ -1,3 +1,10 @@
+/**
+ * $URL: svn+ssh://tserver/var/svn/cps/trunk/src/cpp/lib/qtcurl/QtCUrl.h $
+ * $Author: romanenko $
+ * $Date: 2013-07-12 08:57:30 +0400 (Пт, 12 июл 2013) $
+ * $Rev: 451 $
+ */
+
 #ifndef QTCURL_H
 #define QTCURL_H
 
@@ -32,6 +39,8 @@ public:
 	QString errorBuffer() { return _errorBuffer; }
 	void setTextCodec(const char* codecName);
 	void setTextCodec(QTextCodec* codec);
+
+
 
 protected:
 	void setOptions(Options& opt);

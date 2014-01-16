@@ -1,8 +1,8 @@
 /**
  * $URL: svn+ssh://tserver/var/svn/cps/trunk/src/cpp/lib/qtcurl/QtCUrl.cpp $
- * $Author: onion $
- * $Date: 2012-09-19 14:07:51 +0400 (Wed, 19 Sep 2012) $
- * $Rev: 334 $
+ * $Author: romanenko $
+ * $Date: 2013-07-12 08:57:30 +0400 (Пт, 12 июл 2013) $
+ * $Rev: 451 $
  */
 #include "QtCUrl.h"
 
@@ -76,7 +76,6 @@ void QtCUrl::setTextCodec(const char* codecName)	{
 void QtCUrl::setTextCodec(QTextCodec* codec) {
 	_textCodec = codec;
 }
-
 
 QString QtCUrl::exec(Options& opt) {
 	setOptions(opt);
