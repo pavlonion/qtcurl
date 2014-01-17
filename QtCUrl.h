@@ -51,6 +51,9 @@ public:
 	virtual ~QtCUrl();
 
 	QString exec(Options& opt);
+	QByteArray buffer() const {
+		return QByteArray(_buffer.c_str(), _buffer.length());
+	}
 	inline Code lastError() { return _lastCode; }
 	QString errorBuffer() { return _errorBuffer; }
 	void setTextCodec(const char* codecName);
@@ -64,7 +67,7 @@ protected:
 private:
 	CURL* _curl;
 	char* _errorBuffer;
-	std::string _buffrer;
+	std::string _buffer;
 	Code _lastCode;
 	QTextCodec* _textCodec;
 	QLinkedList<curl_slist*> _slist;

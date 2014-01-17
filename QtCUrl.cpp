@@ -114,7 +114,7 @@ void QtCUrl::setOptions(Options& opt) {
 	defaults[CURLOPT_FAILONERROR] = true;
 	defaults[CURLOPT_ERRORBUFFER].setValue(_errorBuffer);
 	defaults[CURLOPT_WRITEFUNCTION].setValue(&writer);
-	defaults[CURLOPT_WRITEDATA].setValue(&_buffrer);
+	defaults[CURLOPT_WRITEDATA].setValue(&_buffer);
 
 #ifdef QTCURL_DEBUG
 	curl_easy_setopt(_curl, CURLOPT_VERBOSE, 1);
