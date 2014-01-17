@@ -1,13 +1,10 @@
+cmake_minimum_required(VERSION 2.8)
 set(CMAKE_MODULE_PATH /usr/share/apps/cmake/modules/)
 set(CMAKE_USE_SYSTEM_CURL ON)
 
 find_package(Qt4 REQUIRED)
 find_package(CURL REQUIRED)
 find_package(QJSON REQUIRED)
-
-set(CMAKE_C_FLAGS "${PLATFORM_C_FLAGS} -Wall")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${PLATFORM_CXX_FLAGS} -Wall")
-set(CMAKE_LINKER_FLAGS "${PLATFORM_LINKER_FLAGS} -static")
 
 # add some useful macros and variables
 # (QT_USE_FILE is a variable defined by FIND_PACKAGE( Qt4 ) that contains a
@@ -16,19 +13,28 @@ include(${QT_USE_FILE})
 include_directories(
 	${QT_INCLUDE_DIR}
 	${QT_QTCORE_INCLUDE_DIR}
-	${QJSON_INCLUDE_DIR}
 	"./"
 )
 
-message(QT_CORE_LIBRARIES =
-	${QT_QTCORE}
-)
-message(QJSON_LIBRARIES =
-	${QJSON_LIBRARIES}
-)
-message(CURL_LIBRARIES = 
-	${CURL_LIBRARIES}
-)
+IF (NOT DEFINED QTCURL_DEBUG)
+	SET(QTCURL_DEBUG "off")
+ENDIF()
+
+IF (QTCURL_DEBUG STREQUAL "on")
+	ADD_DEFINITIONS(-DQTCURL_DEBUG)
+ELSEIF (QTCURL_DEBUG STREQUAL "off")
+	REMOVE_DEFINITIONS(-DQTCURL_DEBUG)
+ELSE()
+	message(WARNING
+		"QTCURL_DEBUG=${QTCURL_DEBUG} is wrong value. Expected \"on\" or \"off\"."
+	)
+	SET(QTCURL_DEBUG "off")
+	REMOVE_DEFINITIONS(-DQTCURL_DEBUG)
+ENDIF()
+
+message(QTCURL_DEBUG = ${QTCURL_DEBUG})
+message(QT_QTCORE_LIBRARY = ${QT_QTCORE_LIBRARY})
+message(CURL_LIBRARIES = ${CURL_LIBRARIES})
 
 set(P_LIB "-qtcurl")
 message(STATUS "Building library: ${P_LIB}")

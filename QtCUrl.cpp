@@ -1,9 +1,26 @@
-/**
- * $URL: svn+ssh://tserver/var/svn/cps/trunk/src/cpp/lib/qtcurl/QtCUrl.cpp $
- * $Author: romanenko $
- * $Date: 2013-07-12 08:57:30 +0400 (Пт, 12 июл 2013) $
- * $Rev: 451 $
+/* This file is part of QtCurl
+ *
+ * Copyright (C) 2013-2014 Pavel Shmoylov <pavlonion@gmail.com>
+ *
+ * Thanks to Sergey Romanenko for QStringList options support and for
+ * trace function.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License version 2.1, as published by the Free Software Foundation.
+ *
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; see the file COPYING.LIB. If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
  */
+
 #include "QtCUrl.h"
 
 #include <iostream>
@@ -36,20 +53,22 @@ int writer(char* data, size_t size, size_t nmemb, std::string* buffer) {
 }
 
 
-/*
+#ifdef QTCURL_DEBUG
 int trace(CURL *handle, curl_infotype type, unsigned char *data, size_t size, void *userp)
 {
 	std::cerr<< data << std::endl;
 	return 1;
 }
-*/
+#endif
 
 
-QtCUrl::QtCUrl() : _textCodec(0){
+QtCUrl::QtCUrl(): _textCodec(0) {
 	/*
-	* Необходимо вызвать один раз перед первым вызовом curl_easy_init
-	* http://curl.haxx.se/libcurl/c/curl_easy_init.html
-	*/
+	 * It's necessarily to call curl_global_init ones before the first use
+	 * of curl_easy_init.
+	 *
+	 * http://curl.haxx.se/libcurl/c/curl_easy_init.html
+	 */
 	static CURLcode __global = curlGlobalInit();
 	Q_UNUSED(__global)
 
@@ -96,10 +115,12 @@ void QtCUrl::setOptions(Options& opt) {
 	defaults[CURLOPT_ERRORBUFFER].setValue(_errorBuffer);
 	defaults[CURLOPT_WRITEFUNCTION].setValue(&writer);
 	defaults[CURLOPT_WRITEDATA].setValue(&_buffrer);
-/*
+
+#ifdef QTCURL_DEBUG
 	curl_easy_setopt(_curl, CURLOPT_VERBOSE, 1);
 	curl_easy_setopt(_curl, CURLOPT_DEBUGFUNCTION, trace);
-*/
+#endif
+
 	OptionsIterator i(defaults);
 
 	while (i.hasNext()) {

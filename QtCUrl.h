@@ -1,8 +1,24 @@
-/**
- * $URL: svn+ssh://tserver/var/svn/cps/trunk/src/cpp/lib/qtcurl/QtCUrl.h $
- * $Author: romanenko $
- * $Date: 2013-07-12 08:57:30 +0400 (Пт, 12 июл 2013) $
- * $Rev: 451 $
+/* This file is part of QtCurl
+ *
+ * Copyright (C) 2013-2014 Pavel Shmoylov <pavlonion@gmail.com>
+ *
+ * Thanks to Sergey Romanenko for QStringList options support and for
+ * trace function.
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License version 2.1, as published by the Free Software Foundation.
+ *
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this library; see the file COPYING.LIB. If not, write to
+ * the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor,
+ * Boston, MA 02110-1301, USA.
  */
 
 #ifndef QTCURL_H
