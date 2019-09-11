@@ -1,2 +1,6 @@
 build/
 nbproject/
+Makefile
+*.pro.user
+out
+*.stash

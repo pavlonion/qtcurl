@@ -38,15 +38,15 @@ CURLcode curlGlobalInit() {
 
 int writer(char* data, size_t size, size_t nmemb, std::string* buffer) {
 	// What we will return
-	int result = 0;
+    int result = 0;
 
 	// Is there anything in the buffer?
-	if (buffer != NULL) {
+    if (buffer != nullptr) {
 		// Append the data to the buffer
 		buffer->append(data, size * nmemb);
 
 		// How much did we write?
-		result = size * nmemb;
+        result = static_cast<int>(size * nmemb);
 	}
 
 	return result;
@@ -56,13 +56,14 @@ int writer(char* data, size_t size, size_t nmemb, std::string* buffer) {
 #ifdef QTCURL_DEBUG
 int trace(CURL *handle, curl_infotype type, unsigned char *data, size_t size, void *userp)
 {
+    Q_UNUSED(handle); Q_UNUSED(type); Q_UNUSED(data); Q_UNUSED(size); Q_UNUSED(userp)
 	std::cerr<< data << std::endl;
 	return 1;
 }
 #endif
 
 
-QtCUrl::QtCUrl(): _textCodec(0) {
+QtCUrl::QtCUrl(): _textCodec(nullptr) {
 	/*
 	 * It's necessarily to call curl_global_init ones before the first use
 	 * of curl_easy_init.
@@ -161,11 +162,11 @@ void QtCUrl::setOptions(Options& opt) {
 			}
 			case QVariant::ULongLong: {
 				qulonglong val = value.toULongLong();
-				curl_easy_setopt(_curl, i.key(), (void*) val);
+                curl_easy_setopt(_curl, i.key(), reinterpret_cast<void*>(val));
 				break;
 			}
 			case QVariant::StringList: {
-				struct curl_slist *slist = NULL;
+                struct curl_slist *slist = nullptr;
 				foreach (const QString &tmp, value.toStringList()) {
 					 slist = curl_slist_append(slist, tmp.toUtf8().data());
 				}

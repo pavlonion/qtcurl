@@ -52,7 +52,7 @@ public:
 
 	QString exec(Options& opt);
 	QByteArray buffer() const {
-		return QByteArray(_buffer.c_str(), _buffer.length());
+        return QByteArray(_buffer.c_str(), static_cast<int>(_buffer.length()));
 	}
 	inline Code lastError() { return _lastCode; }
 	QString errorBuffer() { return _errorBuffer; }
