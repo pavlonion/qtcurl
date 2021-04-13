@@ -1,4 +1,4 @@
-#include "../src/QtCUrl.h"
+#include "QtCUrl.h"
 #include <QUrl>
 #include <QDebug>
 

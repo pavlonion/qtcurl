@@ -6,13 +6,18 @@
 #   Redistribution and use in source and binary forms are allowed under the
 #   terms of BSD License 2.0.
 ################################################################################
-include($$QBUILD_PATH/templates/projectConfigs.pri)
-
-addSubdirs(libsrc, Dependencies)
-addSubdirs(example, libsrc)
 
 # +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-#
+DIST_HEADERS += \
+    QtCUrl.h \
+
+# +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-#
+SOURCES += \
+    QtCUrl.cpp \
+
 OTHER_FILES += \
-    README.md \
-    COPYING.LIB
+
+################################################################################
+include($$QBUILD_PATH/templates/libConfigs.pri)
+
 

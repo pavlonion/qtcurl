@@ -1,16 +1,19 @@
-QT          += core network
-QT          -= gui
-CONFIG      += console
-osx:CONFIG  -= app_bundle
+################################################################################
+#   QBuildSystem
+#
+#   Copyright(c) 2021 by Targoman Intelligent Processing <http://tip.co.ir>
+#
+#   Redistribution and use in source and binary forms are allowed under the
+#   terms of BSD License 2.0.
+################################################################################
 
-TEMPLATE     = app
+HEADERS +=
 
-PRJDIR       = ../
-include(../qmake/configs.pri)
+# +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-#
+SOURCES += \
+    main.cpp \
 
-LIBS      += \
-             -lqtcurl \
-             -lcurl
+################################################################################
+include($$QBUILD_PATH/templates/testConfigs.pri)
 
-TARGET       = sample
-SOURCES   += main.cpp
+

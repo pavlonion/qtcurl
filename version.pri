@@ -6,13 +6,15 @@
 #   Redistribution and use in source and binary forms are allowed under the
 #   terms of BSD License 2.0.
 ################################################################################
-include($$QBUILD_PATH/templates/projectConfigs.pri)
+ProjectName="QtURL"
+VERSION=1.1.2
 
-addSubdirs(libsrc, Dependencies)
-addSubdirs(example, libsrc)
+#+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-
+LIBS += -lcurl
 
-# +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-#
-OTHER_FILES += \
-    README.md \
-    COPYING.LIB
+#+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-++-+-+-
+QT+= core network
+QT -= gui
+QMAKE_CXXFLAGS += -Wno-unknown-pragmas
+INCLUDEPATH += 3rdParty
 

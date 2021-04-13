@@ -1,0 +1,3 @@
+[submodule "3rdParty/QBuildSystem"]
+	path = 3rdParty/QBuildSystem
+	url = https://github.com/Targoman/QBuildSystem.git
