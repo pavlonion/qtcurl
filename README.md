@@ -25,7 +25,7 @@ headers
 	<< "Accept  text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
 	<< "Accept-Encoding	gzip, deflate"
 	<< "Accept-Language	ru-RU,ru;q=0.8,en-US;q=0.5,en;q=0.3"
-	<< "User-Agent	Mozilla/5.0 (X11; Linux x86_64; rv:20.0) Gecko/20100101 Firefox/20.0"
+	<< "User-Agent	Mozilla/5.0 (X11; Linux x86_64; rv:20.0) Gecko/20100101 Firefox/20.0";
 opt[CURLOPT_HTTPHEADER] = headers;
 QString result = cUrl.exec(opt);
 
@@ -35,6 +35,6 @@ if (cUrl.lastError().isOk()) {
 else {
 	qDebug() << QString("Error: %1\nBuffer: %2")
 		.arg(cUrl.lastError().text())
-		.arg(cUrl.errorBuffer()));
+		.arg(cUrl.errorBuffer());
 }
 ```
