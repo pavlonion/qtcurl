@@ -13,6 +13,9 @@ HEADERS +=
 SOURCES += \
     main.cpp \
 
+OTHER_FILES += SAMPLE1 \
+    SAMPLE2
+
 ################################################################################
 include($$QBUILD_PATH/templates/testConfigs.pri)
 

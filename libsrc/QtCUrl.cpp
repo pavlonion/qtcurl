@@ -225,17 +225,17 @@ void QtCUrl::mime_addData(const QString &_fieldName, const QString &_fieldData)
 {
     this->mime_init();
 
-    curl_mimepart *field = curl_mime_addpart(this->_mimeForm);
-    curl_mime_name(field, _fieldName.toStdString().c_str());
-    curl_mime_data(field, _fieldData.toStdString().c_str(), CURL_ZERO_TERMINATED);
+    curl_mimepart *part = curl_mime_addpart(this->_mimeForm);
+    curl_mime_name(part, _fieldName.toStdString().c_str());
+    curl_mime_data(part, _fieldData.toStdString().c_str(), CURL_ZERO_TERMINATED);
 }
 void QtCUrl::mime_addFile(const QString &_fieldName, const QString &_fileName)
 {
     this->mime_init();
 
-    curl_mimepart *field = curl_mime_addpart(this->_mimeForm);
-    curl_mime_name(field, _fieldName.toStdString().c_str());
-    curl_mime_filedata(field, _fileName.toStdString().c_str());
+    curl_mimepart *part = curl_mime_addpart(this->_mimeForm);
+    curl_mime_name(part, _fieldName.toStdString().c_str());
+    curl_mime_filedata(part, _fileName.toStdString().c_str());
 }
 
 /***************************************************************/
