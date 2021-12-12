@@ -21,6 +21,10 @@
  * Boston, MA 02110-1301, USA.
  */
 
+/*
+ * @author Kambiz Zandi <kambizzandi@gmail.com>
+ */
+
 #include "QtCUrl.h"
 
 #include <iostream>
@@ -84,6 +88,9 @@ QtCUrl::~QtCUrl() {
 		_slist.removeFirst();
 	}
 	curl_easy_cleanup(_curl);
+
+    this->mime_free();
+
 	delete[] _errorBuffer;
 }
 
@@ -99,7 +106,11 @@ void QtCUrl::setTextCodec(QTextCodec* codec) {
 
 QString QtCUrl::exec(Options& opt) {
 	setOptions(opt);
-	_lastCode = Code(curl_easy_perform(_curl));
+
+    if (this->_mimeForm != NULL)
+        curl_easy_setopt(this->_curl, CURLOPT_MIMEPOST, this->_mimeForm);
+
+    _lastCode = Code(curl_easy_perform(_curl));
 	const char* reply = opt[CURLOPT_WRITEDATA].value<std::string*>()->c_str();
 
 	if (_textCodec) {
@@ -192,3 +203,39 @@ void QtCUrl::setOptions(Options& opt) {
 		}
 	}
 }
+
+/***************************************************************\
+|* mime form ***************************************************|
+\***************************************************************/
+void QtCUrl::mime_init()
+{
+    if (this->_mimeForm == NULL)
+        this->_mimeForm = curl_mime_init(this->_curl);
+}
+void QtCUrl::mime_free()
+{
+    if (this->_mimeForm == NULL)
+        return;
+
+    curl_mime_free(this->_mimeForm);
+
+    this->_mimeForm = NULL;
+}
+void QtCUrl::mime_addData(const QString &_fieldName, const QString &_fieldData)
+{
+    this->mime_init();
+
+    curl_mimepart *field = curl_mime_addpart(this->_mimeForm);
+    curl_mime_name(field, _fieldName.toStdString().c_str());
+    curl_mime_data(field, _fieldData.toStdString().c_str(), CURL_ZERO_TERMINATED);
+}
+void QtCUrl::mime_addFile(const QString &_fieldName, const QString &_fileName)
+{
+    this->mime_init();
+
+    curl_mimepart *field = curl_mime_addpart(this->_mimeForm);
+    curl_mime_name(field, _fieldName.toStdString().c_str());
+    curl_mime_filedata(field, _fileName.toStdString().c_str());
+}
+
+/***************************************************************/

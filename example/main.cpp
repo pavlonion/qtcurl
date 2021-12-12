@@ -1,8 +1,12 @@
+/*
+ * @author Kambiz Zandi <kambizzandi@gmail.com>
+ */
+
 #include "QtCUrl.h"
 #include <QUrl>
 #include <QDebug>
 
-int main(int argc, char** argv){
+int main(int argc, char** argv) {
     Q_UNUSED(argc)
     Q_UNUSED(argv)
 
@@ -23,6 +27,12 @@ int main(int argc, char** argv){
         {"User-Agent	Mozilla/5.0 (X11; Linux x86_64; rv:20.0) Gecko/20100101 Firefox/20.0"}
     };
     opt[CURLOPT_HTTPHEADER] = headers;
+
+    cUrl.mime_addData("username", "aaa");
+    cUrl.mime_addData("password", "bbb");
+    cUrl.mime_addFile("file_1", "../../README.md");
+    cUrl.mime_addFile("file_2", "../../LICENSE");
+
     QString result = cUrl.exec(opt);
 
     if (cUrl.lastError().isOk()) {

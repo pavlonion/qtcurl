@@ -21,6 +21,10 @@
  * Boston, MA 02110-1301, USA.
  */
 
+/*
+ * @author Kambiz Zandi <kambizzandi@gmail.com>
+ */
+
 #ifndef QTCURL_H
 #define QTCURL_H
 
@@ -65,12 +69,21 @@ protected:
 	void setOptions(Options& opt);
 
 private:
+    void mime_init();
+    void mime_free();
+public:
+    void mime_addData(const QString &_fieldName, const QString &_fieldData);
+    void mime_addFile(const QString &_fieldName, const QString &_fileName);
+
+private:
 	CURL* _curl;
 	char* _errorBuffer;
 	std::string _buffer;
 	Code _lastCode;
 	QTextCodec* _textCodec;
 	QLinkedList<curl_slist*> _slist;
+
+    curl_mime *_mimeForm = NULL;
 };
 
 Q_DECLARE_METATYPE(QtCUrl::WriterPtr)
